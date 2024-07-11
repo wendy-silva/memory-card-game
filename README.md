@@ -1,1 +1,1 @@
-# snake-game
+# memory-card-game
