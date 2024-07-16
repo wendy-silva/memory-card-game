@@ -1,39 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <script defer src="./js/app.js"></script>
-    <title>Memory Card Game</title>
-  </head>
-  <body>
-    <header>
-      <h1>Memory Card Game</h1>
-    </header>
-    <div class="startButton">Start</div>
-    <div class="grid-container" id ="grid-container">
-      <div class="card">1</div>
-      <div class="card">2</div>
-      <div class="card">3</div>
-      <div class="card">4</div>
-      <div class="card">5</div>
-      <div class="card">6</div>
-      <div class="card">7</div>
-      <div class="card">8</div>
-      <div class="card">9</div>
-      <div class="card">10</div>
-      <div class="card">11</div>
-      <div class="card">12</div>
-      <div class="card">13</div>
-      <div class="card">14</div>
-      <div class="card">15</div>
-      <div class="card">16</div>
-      <div class="card">17</div>
-      <div class="card">18</div>
-      <div class="card">19</div>
-      <div class="card">20</div>
-      <div class="resetButton">Reset</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>Memory Card Game</title>
+</head>
+<body>
+  <header>
+    <h1>Memory Card Game</h1>
+  </header>
+  <button class="startButton">Start</button>
+  <p>Moves: <span class="moves"></span></p>
+  <div class="grid-container" id="grid-container">
+    <div class="card" id="0">0
+    <img src="./Assets/card 1.jpg" alt="witch lair">
+  </div>
+    <div class="card" id="1">1
+        <img src="./Assets/card 1.jpg" alt="witch lair">
+</div>
+    <div class="card" id="2">2
+        <img src="./Assets/card 6.jpg" alt="potions">
     </div>
-  </body>
+    <div class="card" id="3">3
+        <img src="./Assets/card 6.jpg" alt="potions">
+    </div>
+    <div class="card" id="4">4
+        <img src="./Assets/card 7.jpg" alt="forest">
+    </div>
+    <div class="card" id="5">5
+        <img src="./Assets/card 7.jpg" alt="forest">
+    </div>
+    <div class="card" id="6">6
+        <img src="./Assets/card 8.jpg" alt="pumpkin head">
+    </div>
+    <div class="card" id="7">7
+        <img src="./Assets/card 8.jpg" alt="pumpkin head">
+    </div>
+    <div class="card" id="8">8
+        <img src="./Assets/card 9.jpg" alt="wolf">
+    </div>
+    <div class="card" id="9">9
+        <img src="./Assets/card 9.jpg" alt="wolf">
+    </div>
+    <div class="card" id="10">10
+        <img src="./Assets/card 10.jpg" alt="haunted house">
+    </div>
+    <div class="card" id="11">11
+        <img src="./Assets/card 10.jpg" alt="haunted house">
+    </div>
+    <div class="card" id="12">12
+        <img src="./Assets/card 11.jpg" alt="spooky mansion">
+    </div>
+    <div class="card" id="13">13
+        <img src="./Assets/card 11.jpg" alt="spooky mansion">
+    </div>
+    <div class="card" id="14">14
+        <img src="./Assets/card 12.jpg" alt="cemetery">
+    </div>
+    <div class="card" id="15">15
+        <img src="./Assets/card 12.jpg" alt="cemetery">
+    </div>
+    <div class="card" id="16">16
+        <img src="./Assets/card 13.jpg" alt="clown">
+    </div>
+    <div class="card" id="17">17
+        <img src="./Assets/card 13.jpg" alt="clown">
+    </div>
+    <div class="card" id="18">18
+        <img src="./Assets/card 14.jpg" alt="scarecrow">
+    </div>
+    <div class="card" id="19">19
+        <img src="./Assets/card 14.jpg" alt="scarecrow">
+    </div>
+  </div>
+  <div class="actions">
+    <button onclick="reset()">Reset</button>
+  </div>
+  <script defer src="./js/app.js"></script>
+</body>
 </html>
