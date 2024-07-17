@@ -1,6 +1,7 @@
 let cardGrid = [];
 let cards;
-let flippedCards = [];
+let flippedCards = false;
+let flippedString = false;
 let wrongFlips = 0;
 const maxWrongFlips = 6;
 let matchedPairs = 0;
@@ -8,6 +9,7 @@ let firstCard = null;
 let secondCard = null;
 let moves = 0;
 let startGame;
+let stayUp = false;
 
 const cardGridEl = document.querySelector("#grid-container");
 const startButton = document.querySelector(".startButton");
@@ -50,27 +52,11 @@ function init() {
 
 function render() {
 }
+
 function shuffleCards() {
-  let flatGrid = cardGrid.flat();
-
-  for (let i = flatGrid.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [flatGrid[i], flatGrid[j]] = [flatGrid[j], flatGrid[i]];
-  }
-
-  let newGrid = [];
-  let gridSize = cardGrid.length;
-  let rowSize = cardGrid[0].length;
-
-  for (let i = 0; i < gridSize; i++) {
-    newGrid.push(flatGrid.slice(i * rowSize, (i + 1) * rowSize));
-  }
-
-  cardGrid = newGrid;
 }
 
 init();
-shuffleCards();
 
 cardGridEl.addEventListener("click",(event) => {
     console.log(event.target.id)
