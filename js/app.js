@@ -54,8 +54,12 @@ function render() {
 }
 
 function shuffleCards() {
+    cardGrid.forEach((card) => {
+        let randomIndex =Math.floor(Math.random() * cardGrid.length)
+    })
 }
-
+console.log(cardGrid)
+shuffleCards()
 init();
 
 cardGridEl.addEventListener("click",(event) => {

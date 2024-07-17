@@ -31,6 +31,9 @@ body {
   min-width: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
+  background-image: url(/Assets/background.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .actions {
