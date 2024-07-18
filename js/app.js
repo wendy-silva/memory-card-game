@@ -1,4 +1,9 @@
-let cardGrid = [];
+let cardGrid = [
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+  ];
 let cards;
 let flippedCards = false;
 let flippedString = false;
@@ -11,55 +16,105 @@ let moves = 0;
 let startGame;
 let stayUp = false;
 
-const cardGridEl = document.querySelector("#grid-container");
+const cardGridEl = document.querySelector("#gameBoard");
 const startButton = document.querySelector(".startButton");
 const resetButton = document.querySelector(".resetButton");
 const movesEl = document.querySelector(".moves");
 const cardsEl = document.querySelector(".cards");
 
 const cardImage = [
-  "Assets/card 1.jpg",
-  "Assets/card 6.jpg",
-  "Assets/card 7.jpg",
-  "Assets/card 8.jpg",
-  "Assets/card 9.jpg",
-  "Assets/card 10.jpg",
-  "Assets/card 11.jpg",
-  "Assets/card 12.jpg",
-  "Assets/card 13.jpg",
-  "Assets/card 14.jpg",
-  "Assets/card 1.jpg",
-  "Assets/card 6.jpg",
-  "Assets/card 7.jpg",
-  "Assets/card 8.jpg",
-  "Assets/card 9.jpg",
-  "Assets/card 10.jpg",
-  "Assets/card 11.jpg",
-  "Assets/card 12.jpg",
-  "Assets/card 13.jpg",
-  "Assets/card 14.jpg",
+  "/Assets/card1.jpg",
+  "/Assets/card2.jpg",
+  "/Assets/card3.jpg",
+  "/Assets/card4.jpg",
+  "/Assets/card5.jpg",
+  "/Assets/card6.jpg",
+  "/Assets/card7.jpg",
+  "/Assets/card8.jpg",
+  "/Assets/card9.jpg",
+  "/Assets/card10.jpg",
+  "/Assets/card1.jpg",
+  "/Assets/card2.jpg",
+  "/Assets/card3.jpg",
+  "/Assets/card4.jpg",
+  "/Assets/card5.jpg",
+  "/Assets/card6.jpg",
+  "/Assets/card7.jpg",
+  "/Assets/card8.jpg",
+  "/Assets/card9.jpg",
+  "/Assets/card10.jpg",
 ];
 
 function init() {
-  cardGrid = [
-    ["0", "1", "2", "3", "4"],
-    ["5", "6", "7", "8", "9"],
-    ["10", "11", "12", "13", "14"],
-    ["15", "16", "17", "18", "19"],
-  ];
+
   render();
 }
 
 function render() {
 }
 
-function shuffleCards() {
-    cardGrid.forEach((card) => {
-        let randomIndex =Math.floor(Math.random() * cardGrid.length)
-    })
+// function shuffleCards() {
+    // let randomIndex =Math.floor(Math.random() * cardImage.length)
+    // let ranIndex =Math.floor(Math.random() * cardGrid.length)
+//     for (let i = cardGrid.length - 1; i > 0; i--) {
+//         let randomIndex = Math.floor(Math.random() * cardGrid.length);
+//         console.log(randomIndex) 
+//         console.log(cardGrid)
+//     }
+
+//     let currentIndex = 0;
+//     for (let i = 0; i < cardGrid.length; i++) {
+//         for (let j = 0; j < cardGrid[i].length; j++)
+
+//             cardGrid[i][j] = currentIndex++;
+
+// }
+// }
+function shuffleCards(card) {
+
+    const shuffledImages = cardImage.sort(() => Math.random() - 0.5);
+
+    // Assign shuffled images to the cardGrid array
+    let cardIndex = 0;
+    for (let i = 0; i < cardGrid.length; i++) {
+        for (let j = 0; j < cardGrid[i].length; j++) {
+            cardGrid[i][j] = shuffledImages[cardIndex++];
+        }
+    }
+ 
+    console.log(cardGrid);
 }
+
+shuffleCards();
 console.log(cardGrid)
-shuffleCards()
+
+function reveal() {
+
+}
+
+function revealAll() {
+
+}
+
+function flipBackCards() {
+
+}
+
+function flipCards() {
+
+}
+
+function checkMatch() {
+
+}
+
+function checkForWinner() {
+
+}
+
+function gameOver() {
+
+}
 init();
 
 cardGridEl.addEventListener("click",(event) => {
