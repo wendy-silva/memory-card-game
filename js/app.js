@@ -20,7 +20,8 @@ const cardGridEl = document.querySelector("#gameBoard");
 const startButton = document.querySelector(".startButton");
 const resetButton = document.querySelector(".resetButton");
 const movesEl = document.querySelector(".moves");
-const cardsEl = document.querySelector(".cards");
+const cardsEl = document.querySelectorAll(".card");
+const cardBack = document.querySelector(".back").img
 
 const cardImage = [
   "/Assets/card1.jpg",
@@ -42,35 +43,24 @@ const cardImage = [
   "/Assets/card7.jpg",
   "/Assets/card8.jpg",
   "/Assets/card9.jpg",
-  "/Assets/card10.jpg",
+  "/Assets/card10.jpg"
 ];
 
 function init() {
-
+  shuffleCards()
   render();
 }
 
 function render() {
+let cardIndex = 0;
+cardsEl.forEach((card) => {
+    const cardImageElement = card.querySelector('.back img');
+    cardImageElement.src = cardGrid[Math.floor(cardIndex / 5)][cardIndex % 5];
+    cardIndex++;
+});
 }
 
-// function shuffleCards() {
-    // let randomIndex =Math.floor(Math.random() * cardImage.length)
-    // let ranIndex =Math.floor(Math.random() * cardGrid.length)
-//     for (let i = cardGrid.length - 1; i > 0; i--) {
-//         let randomIndex = Math.floor(Math.random() * cardGrid.length);
-//         console.log(randomIndex) 
-//         console.log(cardGrid)
-//     }
-
-//     let currentIndex = 0;
-//     for (let i = 0; i < cardGrid.length; i++) {
-//         for (let j = 0; j < cardGrid[i].length; j++)
-
-//             cardGrid[i][j] = currentIndex++;
-
-// }
-// }
-function shuffleCards(card) {
+function shuffleCards() {
 
     const shuffledImages = cardImage.sort(() => Math.random() - 0.5);
 
@@ -81,12 +71,22 @@ function shuffleCards(card) {
             cardGrid[i][j] = shuffledImages[cardIndex++];
         }
     }
- 
-    console.log(cardGrid);
+
 }
 
-shuffleCards();
-console.log(cardGrid)
+//.src is grabbing the image that is a child within the .card div 
+//3 index of the children
+//path is grabbing only part we need (short pathway)
+function flipCard(card) {
+    const string = card.childNodes[3].children[0].src
+    const path = string.substring(string.indexOf('/Assets'));
+    card.style.backgroundImage = `url(.${path})`
+}
+
+//console.log(cardBack)
+
+
+// shuffleCards();
 
 function reveal() {
 
@@ -115,14 +115,16 @@ function checkForWinner() {
 function gameOver() {
 
 }
+
 init();
 
 cardGridEl.addEventListener("click",(event) => {
-    console.log(event.target.id)
+    console.log(event.target)
+    flipCard(event.target)
+
 
 })
 
 startButton.addEventListener("click",(event) => {
     console.log(event.target.id)
 })
-
