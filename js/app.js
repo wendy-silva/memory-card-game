@@ -7,14 +7,13 @@ let cardGrid = [
 let cards;
 let flippedCards = false;
 let flippedString = false;
-let wrongFlips = 0;
 const maxWrongFlips = 6;
 let matchedPairs = 0;
 let firstCard = null;
 let secondCard = null;
 let moves = 0;
 let startGame;
-let stayUp = false;
+let lockBoard = false;
 
 const cardGridEl = document.querySelector("#gameBoard");
 const startButton = document.querySelector(".startButton");
@@ -22,6 +21,8 @@ const resetButton = document.querySelector(".resetButton");
 const movesEl = document.querySelector(".moves");
 const cardsEl = document.querySelectorAll(".card");
 const cardBack = document.querySelector(".back").img;
+// const firstImage = firstCard.querySelector(".back img").src;
+// const secondImage = secondCard.querySelector(".back img").src;
 
 const cardImage = [
   "/Assets/card1.jpg",
@@ -86,6 +87,17 @@ function flipCard(card) {
   const string = card.childNodes[3].children[0].src;
   const path = string.substring(string.indexOf("/Assets"));
   card.style.backgroundImage = `url(.${path})`;
+
+  if(card)
+  if (!firstCard) {
+    firstCard = card;
+    console.log("1", firstCard);
+  } else {
+    secondCard = card;
+    console.log("2", secondCard);
+    checkMatch();
+    disableClick();
+  }
 }
 
 function revealAll() {
@@ -104,34 +116,38 @@ function revealAll() {
   }, 2000);
 }
 
-// function twoCards() {
-//   firstCard = "";
-//   secondCard = "";
-//   matchedPairs = [];
-
-//   cardsEl.forEach((card) => {
-//     card.addEventListener("click", function () {});
-//   });
 
 function checkMatch() {
-  firstCard = "";
-  secondCard = "";
-  matchedPairs = [];
+    console.log('i')
+    console.log(firstCard, secondCard)
 
-  //  if(firstCard === secondCard)
-
+  if (firstCard === secondCard) {
+    console.log('true')
+    disableClick();
+    matchedPairs++;
+    checkForWinner();
+  } else {
+    flipBackCards();
+    moves++;
+    if (moves >= maxWrongFlips) {
+      gameOver();
+    }
+    moves++;
+    movesEl.textContent = `Moves: ${moves}`;
+  }
 }
 
-function checkForWinner() {}
 
-function flipBackCards() {}
-
-function gameOver() {}
+function disableClick() {
+    firstCard.removeEventListener('click', () => flipCard(firstCard));
+    secondCard.removeEventListener('click', () => flipCard(firstCard));
+    resetBoard()
+}
 
 init();
 
 cardGridEl.addEventListener("click", (event) => {
-  console.log(event.target);
+  console.log('test' + event.target);
   flipCard(event.target);
 });
 
