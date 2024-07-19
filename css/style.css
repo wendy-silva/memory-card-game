@@ -75,7 +75,7 @@ body {
   transform: scale(1.05);
 }
 
-.card.flip {
+.card .flip {
   transform: rotateY(180deg);
   backface-visibility: hidden;
 }

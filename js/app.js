@@ -1,9 +1,9 @@
 let cardGrid = [
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-  ];
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+  ["", "", "", "", ""],
+];
 let cards;
 let flippedCards = false;
 let flippedString = false;
@@ -21,7 +21,7 @@ const startButton = document.querySelector(".startButton");
 const resetButton = document.querySelector(".resetButton");
 const movesEl = document.querySelector(".moves");
 const cardsEl = document.querySelectorAll(".card");
-const cardBack = document.querySelector(".back").img
+const cardBack = document.querySelector(".back").img;
 
 const cardImage = [
   "/Assets/card1.jpg",
@@ -43,88 +43,98 @@ const cardImage = [
   "/Assets/card7.jpg",
   "/Assets/card8.jpg",
   "/Assets/card9.jpg",
-  "/Assets/card10.jpg"
+  "/Assets/card10.jpg",
 ];
 
 function init() {
-  shuffleCards()
+  shuffleCards();
+  //revealAll();
   render();
 }
 
 function render() {
-let cardIndex = 0;
-cardsEl.forEach((card) => {
-    const cardImageElement = card.querySelector('.back img');
-    cardImageElement.src = cardGrid[Math.floor(cardIndex / 5)][cardIndex % 5];
-    cardIndex++;
-});
+  updateGame();
 }
 
 function shuffleCards() {
+  const shuffledImages = cardImage.sort(() => Math.random() - 0.5);
 
-    const shuffledImages = cardImage.sort(() => Math.random() - 0.5);
-
-    // Assign shuffled images to the cardGrid array
-    let cardIndex = 0;
-    for (let i = 0; i < cardGrid.length; i++) {
-        for (let j = 0; j < cardGrid[i].length; j++) {
-            cardGrid[i][j] = shuffledImages[cardIndex++];
-        }
+  // Assign shuffled images to the cardGrid array
+  let cardIndex = 0;
+  for (let i = 0; i < cardGrid.length; i++) {
+    for (let j = 0; j < cardGrid[i].length; j++) {
+      cardGrid[i][j] = shuffledImages[cardIndex++];
     }
-
+  }
 }
 
-//.src is grabbing the image that is a child within the .card div 
+// Is grabbing back image and displaying
+function updateGame() {
+  let cardIndex = 0;
+  cardsEl.forEach((card) => {
+    const cardImageElement = card.querySelector(".back img");
+    cardImageElement.src = cardGrid[Math.floor(cardIndex / 5)][cardIndex % 5];
+    cardIndex++;
+  });
+  revealAll();
+}
+
+//.src is grabbing the image that is a child within the .card div
 //3 index of the children
 //path is grabbing only part we need (short pathway)
 function flipCard(card) {
-    const string = card.childNodes[3].children[0].src
-    const path = string.substring(string.indexOf('/Assets'));
-    card.style.backgroundImage = `url(.${path})`
-}
-
-//console.log(cardBack)
-
-
-// shuffleCards();
-
-function reveal() {
-
+  const string = card.childNodes[3].children[0].src;
+  const path = string.substring(string.indexOf("/Assets"));
+  card.style.backgroundImage = `url(.${path})`;
 }
 
 function revealAll() {
+  // Reveal all cards
+  cardsEl.forEach((card) => {
+    const string = card.childNodes[3].children[0].src;
+    const path = string.substring(string.indexOf("/Assets"));
+    card.style.backgroundImage = `url(.${path})`;
+  });
 
+  // Hide all cards after 2 seconds
+  setTimeout(() => {
+    cardsEl.forEach((card) => {
+      card.style.backgroundImage = "url(/Assets/halloween-pattern.jpg)";
+    });
+  }, 2000);
 }
 
-function flipBackCards() {
+// function twoCards() {
+//   firstCard = "";
+//   secondCard = "";
+//   matchedPairs = [];
 
-}
-
-function flipCards() {
-
-}
+//   cardsEl.forEach((card) => {
+//     card.addEventListener("click", function () {});
+//   });
 
 function checkMatch() {
+  firstCard = "";
+  secondCard = "";
+  matchedPairs = [];
+
+  //  if(firstCard === secondCard)
 
 }
 
-function checkForWinner() {
+function checkForWinner() {}
 
-}
+function flipBackCards() {}
 
-function gameOver() {
-
-}
+function gameOver() {}
 
 init();
 
-cardGridEl.addEventListener("click",(event) => {
-    console.log(event.target)
-    flipCard(event.target)
+cardGridEl.addEventListener("click", (event) => {
+  console.log(event.target);
+  flipCard(event.target);
+});
 
-
-})
-
-startButton.addEventListener("click",(event) => {
-    console.log(event.target.id)
-})
+startButton.addEventListener("click", (event) => {
+  console.log(event.target.id);
+});
