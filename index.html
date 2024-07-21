@@ -13,9 +13,45 @@
   <header>
     <h1>Fright Night Flip</h1>
   </header>
+  
+  <div id="loadingScreen" class="loading-screen">
 
-  <button class="startButton">Start</button>
+    <div class="instructions">
 
+        <h2>Objective</h2>
+        <p2>The goal of the game is to find all the matching pairs of cards with the fewest possible moves.</p2>
+    
+        <h2>How to Play</h2>
+        <p2>
+        <ul>
+          <li>Click on a card to flip it over and reveal the image on the front.</li>
+          <li>Click on a second card to flip it over.</li>
+          <li>If the images on the two flipped cards match, they will remain face up.</li>
+          <li>If the images do not match, the cards will flip back over after a short delay.</li>
+          <li>Repeat the process to find all the matching pairs.</li>
+        </ul>
+        <h2>Moves</h2>
+        <p2>The number of moves you make is tracked and displayed on the screen. A move is counted each time you flip two cards.</p2>
+    
+        <h2>Winning the Game</h2>
+        <p2>The game is won when all pairs of cards have been matched and are face up. A message will appear congratulating you on your win.</p2>
+    
+        <h2>Game Over</h2>
+        <p2>If you reach the maximum number of allowed wrong flips (6 incorrect pairs), the game will display a "Game Over" message. You will not be able to flip any more cards until the game is reset.</p2>
+    
+        <h2>Resetting the Game</h2>
+        <p2>To start a new game, click the "Reset" button. The cards will be reshuffled, and the game board will be reset. All cards will be revealed for a few seconds at the beginning of the new game, then they will flip back over, and you can start finding matches again.</p2>
+    
+        </p2>
+        <h2>Good luck and have fun playing Fright Night Flip!</h2>
+        <button class="startButton">Start</button>
+    </div>
+
+  </div>
+
+  <div class="game-content">
+  <h2 id="messages"></h2>
+  <h2 id="messagesTwo"></h2>
   <p>Moves: <span class="moves"></span></p>
   <div class="matchedPairs" id="matchedPairs"></div>
   <div class="gameBoard" id="gameBoard">
@@ -141,10 +177,10 @@
         <div class="back">
             <img src="/Assets/card10.jpg">
         </div>    
+        
    </div>
-
   </div>
-    <button class="resetButton">Reset</button>
+  <button class="resetButton">Reset</button>
   <script defer src="./js/app.js"></script>
 </body>
 </html>

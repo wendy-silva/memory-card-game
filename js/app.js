@@ -12,8 +12,8 @@ let matchedPairs = 0;
 let firstCard = null;
 let secondCard = null;
 let moves = 0;
-let startGame;
 let lockBoard = false;
+let lastClick;
 
 const cardGridEl = document.querySelector("#gameBoard");
 const startButton = document.querySelector(".startButton");
@@ -21,8 +21,10 @@ const resetButton = document.querySelector(".resetButton");
 const movesEl = document.querySelector(".moves");
 const cardsEl = document.querySelectorAll(".card");
 const cardBack = document.querySelector(".back").img;
-// const firstImage = firstCard.querySelector(".back img").src;
-// const secondImage = secondCard.querySelector(".back img").src;
+const messagesEl = document.querySelector("#messages");
+const messagesElTwo = document.querySelector("#messagesTwo");
+const loadingScreenEl = document.querySelector("#loadingScreen");
+const gameContentEl = document.querySelector(".game-content");
 
 const cardImage = [
   "/Assets/card1.jpg",
@@ -49,8 +51,16 @@ const cardImage = [
 
 function init() {
   shuffleCards();
-  //revealAll();
   render();
+  attachCardListeners();
+  startButton.addEventListener("click", startGame);
+  resetButton.addEventListener("click", resetGame);
+}
+
+function startGame() {
+  loadingScreenEl.style.display = "none";
+  gameContentEl.style.display = "block";
+  revealAll();
 }
 
 function render() {
@@ -69,7 +79,6 @@ function shuffleCards() {
   }
 }
 
-// Is grabbing back image and displaying
 function updateGame() {
   let cardIndex = 0;
   cardsEl.forEach((card) => {
@@ -77,26 +86,21 @@ function updateGame() {
     cardImageElement.src = cardGrid[Math.floor(cardIndex / 5)][cardIndex % 5];
     cardIndex++;
   });
-  revealAll();
 }
 
-//.src is grabbing the image that is a child within the .card div
-//3 index of the children
-//path is grabbing only part we need (short pathway)
 function flipCard(card) {
+  if (lockBoard || card === firstCard) return;
+
   const string = card.childNodes[3].children[0].src;
   const path = string.substring(string.indexOf("/Assets"));
   card.style.backgroundImage = `url(.${path})`;
 
-  if(card)
   if (!firstCard) {
     firstCard = card;
-    console.log("1", firstCard);
   } else {
     secondCard = card;
-    console.log("2", secondCard);
+    lockBoard = true;
     checkMatch();
-    disableClick();
   }
 }
 
@@ -108,49 +112,95 @@ function revealAll() {
     card.style.backgroundImage = `url(.${path})`;
   });
 
-  // Hide all cards after 2 seconds
+  // Hide all cards after 3 seconds
   setTimeout(() => {
     cardsEl.forEach((card) => {
       card.style.backgroundImage = "url(/Assets/halloween-pattern.jpg)";
     });
-  }, 2000);
+  }, 3000);
 }
 
-
 function checkMatch() {
-    console.log('i')
-    console.log(firstCard, secondCard)
+  const firstImage = firstCard.querySelector(".back img").src;
+  const secondImage = secondCard.querySelector(".back img").src;
 
-  if (firstCard === secondCard) {
-    console.log('true')
+  if (firstImage === secondImage) {
     disableClick();
     matchedPairs++;
     checkForWinner();
+    resetBoard();
   } else {
     flipBackCards();
     moves++;
+    movesEl.textContent = `${moves}`;
     if (moves >= maxWrongFlips) {
       gameOver();
     }
-    moves++;
-    movesEl.textContent = `Moves: ${moves}`;
   }
 }
 
+function checkForWinner() {
+  if (matchedPairs === cardImage.length / 2) {
+    messagesEl.textContent = "You win!";
+    messagesElTwo.textContent = "";
+  }
+}
 
 function disableClick() {
-    firstCard.removeEventListener('click', () => flipCard(firstCard));
-    secondCard.removeEventListener('click', () => flipCard(firstCard));
-    resetBoard()
+  firstCard.removeEventListener("click", handleCardClick);
+  secondCard.removeEventListener("click", handleCardClick);
+}
+
+function flipBackCards() {
+  setTimeout(() => {
+    firstCard.style.backgroundImage = "url(/Assets/halloween-pattern.jpg)";
+    secondCard.style.backgroundImage = "url(/Assets/halloween-pattern.jpg)";
+    resetBoard();
+  }, 1000);
+}
+
+function resetBoard() {
+  [firstCard, secondCard] = [null, null];
+  lockBoard = false;
+}
+
+function handleCardClick(event) {
+  if (moves >= maxWrongFlips) return; // Prevent further clicks if maxWrongFlips is reached
+  const card = event.target.closest(".card");
+  if (card) {
+    flipCard(card);
+  }
+}
+
+function attachCardListeners() {
+  cardsEl.forEach((card) => {
+    card.addEventListener("click", handleCardClick);
+  });
+}
+
+function resetGame() {
+  matchedPairs = 0;
+  moves = 0;
+  movesEl.textContent = `${moves}`;
+  messagesEl.textContent = ""; // Clears any messages
+  messagesElTwo.textContent = ""; // Clears any "Game Over" message
+  shuffleCards();
+  updateGame();
+  revealAll();
+  setTimeout(() => {
+    cardsEl.forEach((card) => {
+      card.style.backgroundImage = "url(/Assets/halloween-pattern.jpg)";
+      card.addEventListener("click", handleCardClick);
+    });
+  }, 3000); // Re-hide the cards after 3 seconds
+  resetBoard();
+  lockBoard = false; // Ensure the board is unlocked for a new game
+}
+
+function gameOver() {
+  messagesEl.textContent = "";
+  messagesElTwo.textContent = "Game Over!";
+  lockBoard = true; // Disable further interactions
 }
 
 init();
-
-cardGridEl.addEventListener("click", (event) => {
-  console.log('test' + event.target);
-  flipCard(event.target);
-});
-
-startButton.addEventListener("click", (event) => {
-  console.log(event.target.id);
-});
