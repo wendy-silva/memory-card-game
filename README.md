@@ -10,6 +10,8 @@
 
 ***Game Link:*** [Fright Night Flip](https://frightnightflip.netlify.app)
 
+- Please scroll down to read the game instructions. The start button is located at the bottom of the instructions to begin the game.
+
 
 ***Planning Link:*** [Proposal](/PROPOSAL.md)
 
